@@ -36,18 +36,49 @@ export const Interactive3DFace: React.FC<Interactive3DFaceProps> = ({
       mouseY.set(y);
     };
 
-    const handleMouseLeave = () => {
-      // Return smoothly to center
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const x = touch.clientX / window.innerWidth - 0.5;
+        const y = touch.clientY / window.innerHeight - 0.5;
+        mouseX.set(x);
+        mouseY.set(y);
+      }
+    };
+
+    const handleReset = () => {
       mouseX.set(0);
       mouseY.set(0);
     };
 
+    // Device orientation for mobile tilt if supported
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      if (e.gamma !== null && e.beta !== null) {
+        // gamma: left-to-right (-90 to 90), beta: front-to-back (-180 to 180)
+        const x = Math.min(Math.max(e.gamma / 60, -0.5), 0.5);
+        const y = Math.min(Math.max((e.beta - 45) / 60, -0.5), 0.5);
+        mouseX.set(x);
+        mouseY.set(y);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('mouseleave', handleReset);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleReset);
+    window.addEventListener('touchcancel', handleReset);
+
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+    }
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('mouseleave', handleReset);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleReset);
+      window.removeEventListener('touchcancel', handleReset);
+      window.removeEventListener('deviceorientation', handleOrientation);
     };
   }, [mouseX, mouseY]);
 
@@ -66,14 +97,14 @@ export const Interactive3DFace: React.FC<Interactive3DFaceProps> = ({
         className="relative group flex flex-col items-center w-full"
       >
         {/* Soft Ambient Glow behind the head */}
-        <div className="absolute inset-4 rounded-full bg-purple-600/20 blur-[65px] pointer-events-none group-hover:bg-purple-500/30 transition-all duration-700" />
+        <div className="absolute inset-4 rounded-full bg-purple-600/20 blur-[50px] sm:blur-[65px] pointer-events-none group-hover:bg-purple-500/30 transition-all duration-700" />
 
         {/* 3D Neutral Character Bust Image */}
         <div className="relative w-full flex justify-center">
           <motion.img
             src="/surya_3d_face_neutral.png"
             alt="Surya - AI & Robotics Engineer"
-            className="w-full h-auto object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)] select-none pointer-events-none transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] select-none pointer-events-none transition-transform duration-500 group-hover:scale-105"
             loading="eager"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -93,10 +124,10 @@ export const Interactive3DFace: React.FC<Interactive3DFaceProps> = ({
           />
         </div>
 
-        {/* Clean Single Status Badge */}
-        <div className="absolute -bottom-2 sm:bottom-2 left-1/2 -translate-x-1/2 bg-[#0B0F19]/95 border border-purple-500/30 backdrop-blur-md px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-mono text-[#D7E2EA] whitespace-nowrap shadow-xl flex items-center gap-2 select-none pointer-events-none z-10">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>GITAM &bull; Innovation Center Tech Member</span>
+        {/* Clean Single Status Badge - Responsive & Touch Friendly */}
+        <div className="absolute -bottom-2 sm:bottom-2 left-1/2 -translate-x-1/2 bg-[#0B0F19]/95 border border-purple-500/30 backdrop-blur-md px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-mono text-[#D7E2EA] whitespace-nowrap shadow-xl flex items-center gap-1.5 sm:gap-2 select-none pointer-events-none z-10 max-w-[90vw] truncate">
+          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+          <span className="truncate">GITAM &bull; Innovation Center Tech Member</span>
         </div>
       </motion.div>
     </div>

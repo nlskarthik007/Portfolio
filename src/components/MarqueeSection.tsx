@@ -185,16 +185,16 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 }) => {
   if (type === 'radar') {
     return (
-      <div className="relative w-full h-16 rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-12 sm:h-14 md:h-16 rounded-lg sm:rounded-xl bg-black/40 border border-white/5 overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full border border-emerald-500/20 animate-ping" />
-          <div className="w-8 h-8 rounded-full border border-emerald-500/30" />
-          <div className="w-4 h-4 rounded-full bg-emerald-500/40" />
+          <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full border border-emerald-500/20 animate-ping" />
+          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-emerald-500/30" />
+          <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-emerald-500/40" />
         </div>
-        <div className="absolute top-2 left-3 text-[10px] font-mono text-emerald-400">
+        <div className="absolute top-1.5 sm:top-2 left-2 sm:left-3 text-[9px] sm:text-[10px] font-mono text-emerald-400">
           SCAN: 360&deg; ACTIVE
         </div>
-        <div className="absolute bottom-1.5 right-3 text-[10px] font-mono text-white/50">
+        <div className="absolute bottom-1 sm:bottom-1.5 right-2 sm:right-3 text-[9px] sm:text-[10px] font-mono text-white/50">
           LIDAR 10Hz
         </div>
       </div>
@@ -203,8 +203,8 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 
   if (type === 'waveform') {
     return (
-      <div className="relative w-full h-16 rounded-xl bg-black/40 border border-white/5 overflow-hidden p-2 flex flex-col justify-end">
-        <div className="flex items-end gap-1 h-10 w-full justify-between px-1">
+      <div className="relative w-full h-12 sm:h-14 md:h-16 rounded-lg sm:rounded-xl bg-black/40 border border-white/5 overflow-hidden p-1.5 sm:p-2 flex flex-col justify-end">
+        <div className="flex items-end gap-0.5 sm:gap-1 h-7 sm:h-10 w-full justify-between px-1">
           {[40, 65, 30, 85, 95, 45, 70, 90, 60, 100, 75, 40, 80, 50, 90, 65, 35].map(
             (val, idx) => (
               <div
@@ -214,12 +214,12 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
                   backgroundColor: color,
                   opacity: 0.7 + (idx % 3) * 0.15,
                 }}
-                className="w-1 rounded-full transition-all duration-300"
+                className="w-0.5 sm:w-1 rounded-full transition-all duration-300"
               />
             )
           )}
         </div>
-        <div className="flex justify-between text-[10px] font-mono text-white/50 mt-1">
+        <div className="flex justify-between text-[9px] sm:text-[10px] font-mono text-white/50 mt-0.5 sm:mt-1">
           <span>MFCC SPECTRUM</span>
           <span className="text-rose-400">EDGE INFERENCE</span>
         </div>
@@ -229,11 +229,11 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 
   if (type === 'code') {
     return (
-      <div className="relative w-full h-16 rounded-xl bg-black/40 border border-white/5 p-2 font-mono text-[11px] text-[#D7E2EA]/80 flex flex-col justify-center">
+      <div className="relative w-full h-12 sm:h-14 md:h-16 rounded-lg sm:rounded-xl bg-black/40 border border-white/5 p-1.5 sm:p-2 font-mono text-[9px] sm:text-[11px] text-[#D7E2EA]/80 flex flex-col justify-center">
         <div className="text-indigo-300 flex items-center gap-1">
           <span className="text-white/40">&gt;</span> tRPC.inventory.requisition
         </div>
-        <div className="text-white/50 text-[10px] truncate">
+        <div className="text-white/50 text-[8px] sm:text-[10px] truncate">
           const [data] = await db.select().from(rbac)
         </div>
       </div>
@@ -242,23 +242,23 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 
   if (type === 'nodes') {
     return (
-      <div className="relative w-full h-16 rounded-xl bg-black/40 border border-white/5 p-2 flex items-center justify-between px-4">
-        <div className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse" />
-        <div className="h-[1px] flex-1 bg-gradient-to-r from-sky-400/40 via-purple-500/40 to-sky-400/40 mx-2" />
-        <div className="w-2.5 h-2.5 rounded-full bg-purple-400" />
-        <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/40 via-sky-400/40 to-purple-400/40 mx-2" />
-        <div className="w-2.5 h-2.5 rounded-full bg-sky-400" />
+      <div className="relative w-full h-12 sm:h-14 md:h-16 rounded-lg sm:rounded-xl bg-black/40 border border-white/5 p-1.5 sm:p-2 flex items-center justify-between px-3 sm:px-4">
+        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-sky-400 animate-pulse" />
+        <div className="h-[1px] flex-1 bg-gradient-to-r from-sky-400/40 via-purple-500/40 to-sky-400/40 mx-1.5 sm:mx-2" />
+        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-purple-400" />
+        <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/40 via-sky-400/40 to-purple-400/40 mx-1.5 sm:mx-2" />
+        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-sky-400" />
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-16 rounded-xl bg-black/40 border border-white/5 p-2 flex items-center justify-around">
-      <div className="flex items-center gap-2">
-        <Zap className="w-4 h-4 text-amber-400 animate-bounce" />
-        <span className="text-[11px] font-mono text-white/80">INT8 QUANTIZED</span>
+    <div className="relative w-full h-12 sm:h-14 md:h-16 rounded-lg sm:rounded-xl bg-black/40 border border-white/5 p-1.5 sm:p-2 flex items-center justify-around">
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 animate-bounce" />
+        <span className="text-[9px] sm:text-[11px] font-mono text-white/80">INT8 QUANTIZED</span>
       </div>
-      <div className="text-[10px] font-mono text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-500/30">
+      <div className="text-[8px] sm:text-[10px] font-mono text-emerald-400 bg-emerald-950/50 px-1.5 sm:px-2 py-0.5 rounded border border-emerald-500/30">
         MEMORY SAFE
       </div>
     </div>
@@ -267,7 +267,25 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 
 export const MarqueeSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState<number>(0);
+  const [scrollOffset, setScrollOffset] = useState<number>(0);
+  const [ambientOffset, setAmbientOffset] = useState<number>(0);
+
+  // Smooth ambient drift for active mobile engagement
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastTime = performance.now();
+
+    const animate = (now: number) => {
+      const delta = (now - lastTime) / 1000;
+      lastTime = now;
+      // Drift at gentle 20px per second
+      setAmbientOffset((prev) => (prev + delta * 25) % 3600);
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -278,8 +296,8 @@ export const MarqueeSection: React.FC = () => {
           if (sectionRef.current) {
             const rect = sectionRef.current.getBoundingClientRect();
             const sectionTop = rect.top + window.scrollY;
-            const calcOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
-            setOffset(calcOffset);
+            const calcOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.25;
+            setScrollOffset(calcOffset);
           }
           ticking = false;
         });
@@ -297,43 +315,45 @@ export const MarqueeSection: React.FC = () => {
     };
   }, []);
 
+  const totalOffset = scrollOffset + ambientOffset;
+
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
+      className="relative w-full bg-[#0C0C0C] pt-14 sm:pt-28 md:pt-40 pb-8 sm:pb-12 overflow-hidden"
     >
-      <div className="flex flex-col gap-4 w-full">
-        {/* Row 1 - Moves RIGHT on scroll: translateX(offset - 200) */}
+      <div className="flex flex-col gap-3 sm:gap-4 w-full">
+        {/* Row 1 - Moves RIGHT: translateX(totalOffset - 200) */}
         <div className="w-full overflow-hidden flex">
           <div
-            className="flex gap-4 transition-transform duration-75 ease-out"
+            className="flex gap-3 sm:gap-4 transition-transform duration-75 ease-out"
             style={{
-              transform: `translateX(${offset - 200}px)`,
+              transform: `translateX(${totalOffset - 200}px)`,
               willChange: 'transform',
             }}
           >
             {row1Items.map((item, index) => (
               <div
                 key={`row1-${item.id}-${index}`}
-                className="w-[420px] h-[270px] min-w-[420px] rounded-2xl overflow-hidden bg-[#111622] border border-[#1E293B]/80 p-5 flex flex-col justify-between shadow-xl flex-shrink-0 group hover:border-purple-500/50 transition-colors"
+                className="w-[285px] xs:w-[320px] sm:w-[360px] md:w-[420px] min-w-[285px] xs:min-w-[320px] sm:min-w-[360px] md:min-w-[420px] h-[215px] xs:h-[230px] sm:h-[250px] md:h-[270px] rounded-xl sm:rounded-2xl overflow-hidden bg-[#111622] border border-[#1E293B]/80 p-3.5 sm:p-5 flex flex-col justify-between shadow-xl flex-shrink-0 group hover:border-purple-500/50 transition-colors"
               >
                 {/* Header */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                     <span
                       style={{ color: item.categoryColor }}
-                      className="text-[11px] font-mono uppercase tracking-widest font-semibold"
+                      className="text-[9px] sm:text-[11px] font-mono uppercase tracking-widest font-semibold"
                     >
                       {item.category}
                     </span>
-                    <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <div className="p-1 sm:p-1.5 rounded-lg bg-white/5 border border-white/10">
                       {item.icon}
                     </div>
                   </div>
-                  <h4 className="text-lg font-bold text-white uppercase tracking-tight group-hover:text-purple-300 transition-colors">
+                  <h4 className="text-sm sm:text-base md:text-lg font-bold text-white uppercase tracking-tight group-hover:text-purple-300 transition-colors truncate">
                     {item.title}
                   </h4>
-                  <p className="text-xs text-[#D7E2EA]/70 line-clamp-2 mt-1 font-light leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-[#D7E2EA]/70 line-clamp-2 mt-0.5 sm:mt-1 font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -342,18 +362,18 @@ export const MarqueeSection: React.FC = () => {
                 <CardVisual type={item.visualType} color={item.categoryColor} />
 
                 {/* Footer Tags & Metric */}
-                <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    {item.tags.map((t) => (
+                <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-white/5 text-[10px] sm:text-[11px]">
+                  <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
+                    {item.tags.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded bg-white/5 text-[#D7E2EA]/80 font-mono text-[10px]"
+                        className="px-1.5 py-0.5 sm:px-2 rounded bg-white/5 text-[#D7E2EA]/80 font-mono text-[9px] sm:text-[10px]"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
-                  <div className="text-right flex-shrink-0 font-mono text-purple-300 font-semibold">
+                  <div className="text-right flex-shrink-0 font-mono text-purple-300 font-semibold text-[10px] sm:text-xs">
                     {item.metricValue}
                   </div>
                 </div>
@@ -362,37 +382,37 @@ export const MarqueeSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Row 2 - Moves LEFT on scroll: translateX(-(offset - 200)) */}
+        {/* Row 2 - Moves LEFT: translateX(-(totalOffset - 200)) */}
         <div className="w-full overflow-hidden flex">
           <div
-            className="flex gap-4 transition-transform duration-75 ease-out"
+            className="flex gap-3 sm:gap-4 transition-transform duration-75 ease-out"
             style={{
-              transform: `translateX(${-(offset - 200)}px)`,
+              transform: `translateX(${-(totalOffset - 200)}px)`,
               willChange: 'transform',
             }}
           >
             {row2Items.map((item, index) => (
               <div
                 key={`row2-${item.id}-${index}`}
-                className="w-[420px] h-[270px] min-w-[420px] rounded-2xl overflow-hidden bg-[#111622] border border-[#1E293B]/80 p-5 flex flex-col justify-between shadow-xl flex-shrink-0 group hover:border-purple-500/50 transition-colors"
+                className="w-[285px] xs:w-[320px] sm:w-[360px] md:w-[420px] min-w-[285px] xs:min-w-[320px] sm:min-w-[360px] md:min-w-[420px] h-[215px] xs:h-[230px] sm:h-[250px] md:h-[270px] rounded-xl sm:rounded-2xl overflow-hidden bg-[#111622] border border-[#1E293B]/80 p-3.5 sm:p-5 flex flex-col justify-between shadow-xl flex-shrink-0 group hover:border-purple-500/50 transition-colors"
               >
                 {/* Header */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                     <span
                       style={{ color: item.categoryColor }}
-                      className="text-[11px] font-mono uppercase tracking-widest font-semibold"
+                      className="text-[9px] sm:text-[11px] font-mono uppercase tracking-widest font-semibold"
                     >
                       {item.category}
                     </span>
-                    <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                    <div className="p-1 sm:p-1.5 rounded-lg bg-white/5 border border-white/10">
                       {item.icon}
                     </div>
                   </div>
-                  <h4 className="text-lg font-bold text-white uppercase tracking-tight group-hover:text-purple-300 transition-colors">
+                  <h4 className="text-sm sm:text-base md:text-lg font-bold text-white uppercase tracking-tight group-hover:text-purple-300 transition-colors truncate">
                     {item.title}
                   </h4>
-                  <p className="text-xs text-[#D7E2EA]/70 line-clamp-2 mt-1 font-light leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-[#D7E2EA]/70 line-clamp-2 mt-0.5 sm:mt-1 font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -401,18 +421,18 @@ export const MarqueeSection: React.FC = () => {
                 <CardVisual type={item.visualType} color={item.categoryColor} />
 
                 {/* Footer Tags & Metric */}
-                <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    {item.tags.map((t) => (
+                <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-white/5 text-[10px] sm:text-[11px]">
+                  <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
+                    {item.tags.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded bg-white/5 text-[#D7E2EA]/80 font-mono text-[10px]"
+                        className="px-1.5 py-0.5 sm:px-2 rounded bg-white/5 text-[#D7E2EA]/80 font-mono text-[9px] sm:text-[10px]"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
-                  <div className="text-right flex-shrink-0 font-mono text-purple-300 font-semibold">
+                  <div className="text-right flex-shrink-0 font-mono text-purple-300 font-semibold text-[10px] sm:text-xs">
                     {item.metricValue}
                   </div>
                 </div>

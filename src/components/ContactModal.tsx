@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -36,6 +36,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   const myEmail = 'likithskarthik@gmail.com';
   const myPhone = '+91-9014918875';
+
+  // Prevent background scrolling when modal is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(myEmail);
@@ -125,27 +136,27 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             className="fixed inset-0 bg-black/80 backdrop-blur-md"
           />
 
-          {/* Modal Content */}
+          {/* Modal Content - max-h-[90dvh] with smooth internal scroll for mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-xl rounded-[32px] sm:rounded-[40px] border border-[#D7E2EA]/20 bg-[#121212] p-6 sm:p-8 text-[#D7E2EA] shadow-[0_25px_60px_rgba(0,0,0,0.8)] z-10 overflow-hidden my-8"
+            className="relative w-full max-w-xl rounded-2xl sm:rounded-[36px] md:rounded-[40px] border border-[#D7E2EA]/20 bg-[#121212] p-4 sm:p-7 md:p-8 text-[#D7E2EA] shadow-[0_25px_60px_rgba(0,0,0,0.8)] z-10 max-h-[90dvh] overflow-y-auto overscroll-contain my-auto"
           >
             {/* Top Bar */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+            <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10">
               <div>
-                <span className="text-xs uppercase tracking-widest text-purple-400 font-mono flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Direct Contact
+                <span className="text-[10px] sm:text-xs uppercase tracking-widest text-purple-400 font-mono flex items-center gap-1.5">
+                  <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5" /> Direct Contact
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-white tracking-tight">
                   Let&apos;s Build Together
                 </h3>
               </div>
               <button
                 onClick={onClose}
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors text-white"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 active:scale-95 transition-all text-white flex-shrink-0 cursor-pointer"
                 aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />
@@ -153,19 +164,19 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             </div>
 
             {/* Direct Contact Cards */}
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="mt-4 sm:mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
               {/* Email Card with 1-click open */}
-              <div className="p-3.5 rounded-2xl bg-[#1A1A1A] border border-white/5 flex items-center justify-between gap-2 hover:border-purple-500/30 transition-all">
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#1A1A1A] border border-white/5 flex items-center justify-between gap-2 hover:border-purple-500/30 transition-all">
                 <a
                   href={`mailto:${myEmail}`}
                   className="flex items-center gap-2.5 overflow-hidden group flex-1"
                   title="Click to open email"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-purple-900/30 border border-purple-500/20 flex items-center justify-center text-purple-300 flex-shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                  <div className="w-8 h-8 rounded-lg sm:rounded-xl bg-purple-900/30 border border-purple-500/20 flex items-center justify-center text-purple-300 flex-shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <div className="text-[10px] text-[#D7E2EA]/60 font-mono">EMAIL DIRECTLY</div>
+                    <div className="text-[9px] sm:text-[10px] text-[#D7E2EA]/60 font-mono">EMAIL DIRECTLY</div>
                     <div className="text-xs sm:text-sm font-medium text-white truncate group-hover:text-purple-300 transition-colors">
                       {myEmail}
                     </div>
@@ -173,7 +184,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </a>
                 <button
                   onClick={copyEmail}
-                  className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-white/20 hover:border-white/50 bg-white/5 flex items-center gap-1 flex-shrink-0 transition-colors text-white"
+                  className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border border-white/20 hover:border-white/50 active:scale-95 bg-white/5 flex items-center gap-1 flex-shrink-0 transition-colors text-white cursor-pointer"
                   title="Copy email to clipboard"
                 >
                   {copiedEmail ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
@@ -181,17 +192,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
 
               {/* Phone Card */}
-              <div className="p-3.5 rounded-2xl bg-[#1A1A1A] border border-white/5 flex items-center justify-between gap-2 hover:border-emerald-500/30 transition-all">
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#1A1A1A] border border-white/5 flex items-center justify-between gap-2 hover:border-emerald-500/30 transition-all">
                 <a
                   href={`tel:${myPhone}`}
                   className="flex items-center gap-2.5 overflow-hidden group flex-1"
                   title="Click to call"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-emerald-900/30 border border-emerald-500/20 flex items-center justify-center text-emerald-300 flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                  <div className="w-8 h-8 rounded-lg sm:rounded-xl bg-emerald-900/30 border border-emerald-500/20 flex items-center justify-center text-emerald-300 flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div className="truncate">
-                    <div className="text-[10px] text-[#D7E2EA]/60 font-mono">PHONE / WHATSAPP</div>
+                    <div className="text-[9px] sm:text-[10px] text-[#D7E2EA]/60 font-mono">PHONE / WHATSAPP</div>
                     <div className="text-xs sm:text-sm font-medium text-white truncate group-hover:text-emerald-300 transition-colors">
                       {myPhone}
                     </div>
@@ -199,7 +210,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </a>
                 <button
                   onClick={copyPhone}
-                  className="px-2.5 py-1 rounded-full text-[11px] font-medium border border-white/20 hover:border-white/50 bg-white/5 flex items-center gap-1 flex-shrink-0 transition-colors text-white"
+                  className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border border-white/20 hover:border-white/50 active:scale-95 bg-white/5 flex items-center gap-1 flex-shrink-0 transition-colors text-white cursor-pointer"
                   title="Copy phone to clipboard"
                 >
                   {copiedPhone ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
@@ -212,16 +223,16 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="py-6 flex flex-col items-center justify-center text-center gap-4 mt-3"
+                className="py-5 sm:py-6 flex flex-col items-center justify-center text-center gap-3.5 sm:gap-4 mt-2 sm:mt-3"
               >
-                <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                  <CheckCircle2 className="w-7 h-7" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold uppercase tracking-wide text-white">
+                  <h4 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-white">
                     Email Ready to Send!
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#D7E2EA]/70 max-w-sm mt-1">
+                  <p className="text-xs sm:text-sm text-[#D7E2EA]/70 max-w-sm mt-1 px-2">
                     Your message has been pre-formatted for <strong className="text-white">{myEmail}</strong>. Click below to dispatch it instantly:
                   </p>
                 </div>
@@ -230,7 +241,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                   <button
                     onClick={openGmailWeb}
-                    className="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all"
+                    className="w-full py-2.5 px-4 min-h-[44px] rounded-xl bg-purple-600 hover:bg-purple-500 active:scale-98 text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 transition-all cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Open in Gmail (Web)</span>
@@ -238,7 +249,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
                   <button
                     onClick={openMailto}
-                    className="w-full py-2.5 px-4 rounded-xl bg-[#222222] hover:bg-[#2a2a2a] border border-white/10 text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-2.5 px-4 min-h-[44px] rounded-xl bg-[#222222] hover:bg-[#2a2a2a] active:scale-98 border border-white/10 text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>Open Mail App</span>
@@ -248,7 +259,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 <div className="flex items-center gap-4 text-xs pt-1">
                   <button
                     onClick={copyMessageSummary}
-                    className="text-[#D7E2EA]/60 hover:text-white flex items-center gap-1 transition-colors"
+                    className="text-[#D7E2EA]/60 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
                   >
                     {copiedSummary ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                     <span>{copiedSummary ? 'Copied Full Message' : 'Copy Message Text'}</span>
@@ -256,17 +267,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   <span className="text-white/20">&bull;</span>
                   <button
                     onClick={() => setFormSent(false)}
-                    className="text-purple-400 hover:underline"
+                    className="text-purple-400 hover:underline cursor-pointer"
                   >
                     Edit Message
                   </button>
                 </div>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <form onSubmit={handleSubmit} className="mt-4 sm:mt-5 space-y-3 sm:space-y-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1.5 font-medium">
+                    <label className="block text-[11px] sm:text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1 font-medium">
                       Your Name
                     </label>
                     <input
@@ -275,11 +286,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       placeholder="Surya Sharma"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors"
+                      className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-base sm:text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1.5 font-medium">
+                    <label className="block text-[11px] sm:text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1 font-medium">
                       Your Email Address
                     </label>
                     <input
@@ -288,19 +299,19 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       placeholder="surya@tech.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors"
+                      className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-base sm:text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1.5 font-medium">
+                  <label className="block text-[11px] sm:text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1 font-medium">
                     Technical Domain
                   </label>
                   <select
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-purple-400 transition-colors"
+                    className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-purple-400 transition-colors"
                   >
                     <option value="Full-Stack Web Architecture (React/Node/PostgreSQL)">
                       01 - Full-Stack Web Architecture (React / tRPC / PostgreSQL)
@@ -321,7 +332,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1.5 font-medium">
+                  <label className="block text-[11px] sm:text-xs uppercase tracking-wider text-[#D7E2EA]/70 mb-1 font-medium">
                     Message / Project Goals
                   </label>
                   <textarea
@@ -330,7 +341,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     placeholder="Tell me about your initiative, timeline, or engineering goals..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors resize-none"
+                    className="w-full rounded-xl bg-[#181818] border border-white/10 px-3.5 py-2.5 text-base sm:text-sm text-white placeholder-white/30 focus:outline-none focus:border-purple-400 transition-colors resize-none"
                   />
                 </div>
 
@@ -344,7 +355,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     outline: '2px solid #FFFFFF',
                     outlineOffset: '-3px',
                   }}
-                  className="w-full rounded-full py-3 text-sm uppercase tracking-widest font-medium text-white flex items-center justify-center gap-2 hover:brightness-110 active:scale-98 transition-all cursor-pointer"
+                  className="w-full rounded-full py-3 min-h-[48px] text-xs sm:text-sm uppercase tracking-widest font-medium text-white flex items-center justify-center gap-2 hover:brightness-110 active:scale-98 transition-all cursor-pointer shadow-lg"
                 >
                   <Send className="w-4 h-4" />
                   <span>{isSubmitting ? 'Preparing Email...' : 'Send Message'}</span>

@@ -29,7 +29,7 @@ export const ContactButton: React.FC<ContactButtonProps> = ({
       whileHover={{ scale: 1.05, filter: 'brightness(1.1)' }}
       whileTap={{ scale: 0.96 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-      className={`inline-flex items-center justify-center rounded-full text-white font-medium uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-xs sm:text-sm md:text-base cursor-pointer select-none transition-all duration-200 ${className}`}
+      className={`inline-flex items-center justify-center rounded-full text-white font-medium uppercase tracking-widest px-6 py-2.5 sm:px-9 sm:py-3.5 md:px-12 md:py-4 text-[11px] sm:text-sm md:text-base min-h-[44px] cursor-pointer select-none transition-all duration-200 shadow-lg ${className}`}
     >
       Contact Me
     </Component>

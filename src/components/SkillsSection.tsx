@@ -382,19 +382,19 @@ export const SkillsSection: React.FC = () => {
   return (
     <section
       id="skills"
-      className="relative w-full bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 z-0 overflow-hidden"
+      className="relative w-full bg-[#0C0C0C] px-4 sm:px-8 md:px-10 py-16 sm:py-24 md:py-32 z-0 overflow-hidden"
     >
       <div className="max-w-6xl mx-auto w-full">
         {/* Heading */}
         <FadeIn delay={0} y={40}>
-          <div className="text-center mb-16 sm:mb-20 md:mb-24">
+          <div className="text-center mb-12 sm:mb-18 md:mb-24">
             <h2
-              style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
-              className="hero-heading font-black uppercase tracking-tight leading-none mb-4 select-none"
+              style={{ fontSize: 'clamp(2.5rem, 11vw, 150px)' }}
+              className="hero-heading font-black uppercase tracking-tight leading-none mb-3 sm:mb-4 select-none"
             >
               Technical Skills
             </h2>
-            <p className="text-[#D7E2EA]/70 font-light text-sm sm:text-base md:text-lg max-w-xl mx-auto">
+            <p className="text-[#D7E2EA]/70 font-light text-xs sm:text-base md:text-lg max-w-xl mx-auto px-2">
               A comprehensive toolkit spanning AI, full-stack systems, robotics, and cloud engineering.
             </p>
           </div>
@@ -402,7 +402,7 @@ export const SkillsSection: React.FC = () => {
 
         {/* Technical Skills Table matching the provided image */}
         <FadeIn delay={0.15} y={30}>
-          <div className="w-full rounded-2xl md:rounded-3xl border border-[#1E293B]/80 bg-[#0B0F19]/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden">
+          <div className="w-full rounded-xl sm:rounded-2xl md:rounded-3xl border border-[#1E293B]/80 bg-[#0B0F19]/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden">
             {SKILL_CATEGORIES.map((categoryGroup, index) => (
               <div
                 key={categoryGroup.category}
@@ -413,14 +413,14 @@ export const SkillsSection: React.FC = () => {
                 }`}
               >
                 {/* Category label column */}
-                <div className="w-full md:w-64 lg:w-72 flex-shrink-0 px-6 py-4 md:py-6 md:px-8 border-b md:border-b-0 md:border-r border-[#1E293B]/80 flex items-center bg-[#0D1322]/50 md:bg-transparent">
-                  <h3 className="text-white font-semibold text-base sm:text-lg tracking-wide">
+                <div className="w-full md:w-64 lg:w-72 flex-shrink-0 px-4 py-3 sm:px-6 sm:py-4 md:py-6 md:px-8 border-b md:border-b-0 md:border-r border-[#1E293B]/80 flex items-center bg-[#0D1322]/80 md:bg-transparent">
+                  <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">
                     {categoryGroup.category}
                   </h3>
                 </div>
 
                 {/* Skills badges column */}
-                <div className="flex-1 px-6 py-5 md:px-8 md:py-6 flex flex-wrap gap-2.5 sm:gap-3 items-center">
+                <div className="flex-1 px-3.5 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 flex flex-wrap gap-2 sm:gap-2.5 md:gap-3 items-center">
                   {categoryGroup.skills.map((skill) => (
                     <div
                       key={skill.name}
@@ -428,9 +428,9 @@ export const SkillsSection: React.FC = () => {
                         backgroundColor: skill.bgColor,
                         color: skill.textColor || '#FFFFFF',
                       }}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-md font-bold text-xs sm:text-sm tracking-wider uppercase select-none transition-all duration-200 hover:scale-105 hover:shadow-lg shadow-sm cursor-default"
+                      className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-md font-bold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase select-none transition-all duration-200 active:scale-95 hover:scale-105 hover:shadow-lg shadow-sm cursor-default"
                     >
-                      <span className="flex-shrink-0 flex items-center justify-center">
+                      <span className="flex-shrink-0 flex items-center justify-center scale-90 sm:scale-100">
                         {skill.icon}
                       </span>
                       <span className="whitespace-nowrap font-bold">
