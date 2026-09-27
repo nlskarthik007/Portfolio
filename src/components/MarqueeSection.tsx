@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import {
   Cpu,
   Bot,
@@ -175,9 +175,9 @@ const ROW_2_CARDS: TechPreviewCard[] = [
   },
 ];
 
-// Tripled lists for seamless scrolling
-const row1Items = [...ROW_1_CARDS, ...ROW_1_CARDS, ...ROW_1_CARDS];
-const row2Items = [...ROW_2_CARDS, ...ROW_2_CARDS, ...ROW_2_CARDS];
+// Doubled lists for seamless 50% translation looping
+const row1Items = [...ROW_1_CARDS, ...ROW_1_CARDS];
+const row2Items = [...ROW_2_CARDS, ...ROW_2_CARDS];
 
 const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string }> = ({
   type,
@@ -266,72 +266,14 @@ const CardVisual: React.FC<{ type: TechPreviewCard['visualType']; color: string 
 };
 
 export const MarqueeSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [scrollOffset, setScrollOffset] = useState<number>(0);
-  const [ambientOffset, setAmbientOffset] = useState<number>(0);
-
-  // Smooth ambient drift for active mobile engagement
-  useEffect(() => {
-    let animationFrameId: number;
-    let lastTime = performance.now();
-
-    const animate = (now: number) => {
-      const delta = (now - lastTime) / 1000;
-      lastTime = now;
-      // Drift at gentle 20px per second
-      setAmbientOffset((prev) => (prev + delta * 25) % 3600);
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
-
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect();
-            const sectionTop = rect.top + window.scrollY;
-            const calcOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.25;
-            setScrollOffset(calcOffset);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
-
-  const totalOffset = scrollOffset + ambientOffset;
-
   return (
     <section
-      ref={sectionRef}
       className="relative w-full bg-[#0C0C0C] pt-14 sm:pt-28 md:pt-40 pb-8 sm:pb-12 overflow-hidden"
     >
       <div className="flex flex-col gap-3 sm:gap-4 w-full">
-        {/* Row 1 - Moves RIGHT: translateX(totalOffset - 200) */}
+        {/* Row 1 - Moves RIGHT with 0% CPU via GPU CSS keyframe */}
         <div className="w-full overflow-hidden flex">
-          <div
-            className="flex gap-3 sm:gap-4 transition-transform duration-75 ease-out"
-            style={{
-              transform: `translateX(${totalOffset - 200}px)`,
-              willChange: 'transform',
-            }}
-          >
+          <div className="animate-marquee-right flex gap-3 sm:gap-4 pr-3 sm:pr-4">
             {row1Items.map((item, index) => (
               <div
                 key={`row1-${item.id}-${index}`}
@@ -382,15 +324,9 @@ export const MarqueeSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Row 2 - Moves LEFT: translateX(-(totalOffset - 200)) */}
+        {/* Row 2 - Moves LEFT with 0% CPU via GPU CSS keyframe */}
         <div className="w-full overflow-hidden flex">
-          <div
-            className="flex gap-3 sm:gap-4 transition-transform duration-75 ease-out"
-            style={{
-              transform: `translateX(${-(totalOffset - 200)}px)`,
-              willChange: 'transform',
-            }}
-          >
+          <div className="animate-marquee-left flex gap-3 sm:gap-4 pr-3 sm:pr-4">
             {row2Items.map((item, index) => (
               <div
                 key={`row2-${item.id}-${index}`}

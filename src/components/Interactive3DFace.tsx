@@ -99,17 +99,19 @@ export const Interactive3DFace: React.FC<Interactive3DFaceProps> = ({
         {/* Soft Ambient Glow behind the head */}
         <div className="absolute inset-4 rounded-full bg-purple-600/20 blur-[50px] sm:blur-[65px] pointer-events-none group-hover:bg-purple-500/30 transition-all duration-700" />
 
-        {/* 3D Neutral Character Bust Image */}
+        {/* 3D Neutral Character Bust Image - High-speed WebP with PNG fallback */}
         <div className="relative w-full flex justify-center">
-          <motion.img
-            src="/surya_3d_face_neutral.png"
-            alt="Surya - AI & Robotics Engineer"
-            className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] select-none pointer-events-none transition-transform duration-500 group-hover:scale-105"
-            loading="eager"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          />
+          <picture className="w-full flex justify-center">
+            <source srcSet="/surya_3d_face_neutral.webp" type="image/webp" />
+            <img
+              src="/surya_3d_face_neutral.png"
+              alt="Surya - AI & Robotics Engineer"
+              className="w-full h-auto object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.9)] select-none pointer-events-none transition-transform duration-300 group-hover:scale-105"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
 
           {/* Interactive Dynamic Specular Light Glaze */}
           <motion.div

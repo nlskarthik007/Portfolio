@@ -81,53 +81,86 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
         </nav>
       </FadeIn>
 
-      {/* Massive Hero Heading */}
-      <div className="w-full overflow-hidden z-10 flex flex-col items-center justify-center pt-2 sm:pt-0">
-        <FadeIn delay={0.15} y={40} className="w-full flex flex-col items-center px-2">
-          <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-[#D7E2EA]/80 mb-1.5 sm:mb-2 shadow-sm">
-            <Terminal className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400" />
+      {/* Desktop Layout (sm and up) */}
+      <div className="hidden sm:flex flex-col justify-between flex-1 w-full relative">
+        {/* Massive Hero Heading */}
+        <div className="w-full overflow-hidden z-10 flex flex-col items-center justify-center pt-2 sm:pt-4">
+          <FadeIn delay={0.05} y={30} className="w-full flex flex-col items-center px-2">
+            <div className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs md:text-sm uppercase tracking-widest text-[#D7E2EA]/80 mb-2 shadow-sm">
+              <Terminal className="w-3.5 h-3.5 text-purple-400" />
+              <span>AI &middot; Robotics &middot; Full-Stack</span>
+            </div>
+            <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center sm:text-[14vw] md:text-[15.5vw] lg:text-[17vw] select-none pointer-events-none">
+              Hi, i&apos;m surya
+            </h1>
+          </FadeIn>
+        </div>
+
+        {/* Hero 3D Interactive Face with Magnet effect - Instant load */}
+        <div className="absolute left-1/2 -translate-x-1/2 z-10 sm:w-[380px] md:w-[460px] lg:w-[520px] bottom-0 pointer-events-auto">
+          <FadeIn delay={0.05} y={20}>
+            <Magnet
+              padding={140}
+              strength={3.5}
+              activeTransition="transform 0.3s ease-out"
+              inactiveTransition="transform 0.6s ease-in-out"
+              className="w-full flex justify-center"
+            >
+              <Interactive3DFace className="w-full" />
+            </Magnet>
+          </FadeIn>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="flex justify-between items-end pb-8 md:pb-10 px-6 md:px-10 z-20 relative w-full">
+          {/* Left text */}
+          <FadeIn delay={0.1} y={20}>
+            <p
+              style={{ fontSize: 'clamp(0.8rem, 1.25vw, 1.35rem)' }}
+              className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[260px] md:max-w-[320px] text-left"
+            >
+              a computer science engineer driven by building intelligent edge systems, autonomous robotics, and scalable full-stack platforms
+            </p>
+          </FadeIn>
+
+          {/* Right contact button */}
+          <FadeIn delay={0.15} y={20}>
+            <ContactButton
+              onClick={onContactClick}
+              href={onContactClick ? undefined : '#contact'}
+            />
+          </FadeIn>
+        </div>
+      </div>
+
+      {/* Dedicated Mobile Layout (< sm) - Fluid, non-overlapping, instant render */}
+      <div className="flex sm:hidden flex-col items-center justify-between flex-1 w-full px-4 pt-2 pb-5 z-10 relative">
+        {/* Top: Badge + Title + Subtitle */}
+        <div className="flex flex-col items-center text-center w-full">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest text-[#D7E2EA]/80 mb-2 shadow-sm">
+            <Terminal className="w-3 h-3 text-purple-400" />
             <span>AI &middot; Robotics &middot; Full-Stack</span>
           </div>
-          <h1 className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center text-[11.2vw] sm:text-[14vw] md:text-[15.5vw] lg:text-[17vw] select-none pointer-events-none">
+          <h1 className="hero-heading font-black uppercase tracking-tight leading-none text-[12.5vw] select-none pointer-events-none">
             Hi, i&apos;m surya
           </h1>
-        </FadeIn>
-      </div>
-
-      {/* Hero 3D Interactive Face with Magnet effect */}
-      <div className="absolute left-1/2 -translate-x-1/2 z-10 w-[240px] xs:w-[280px] sm:w-[380px] md:w-[460px] lg:w-[520px] top-[48%] -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 pointer-events-auto">
-        <FadeIn delay={0.6} y={30}>
-          <Magnet
-            padding={120}
-            strength={3.5}
-            activeTransition="transform 0.3s ease-out"
-            inactiveTransition="transform 0.6s ease-in-out"
-            className="w-full flex justify-center"
-          >
-            <Interactive3DFace className="w-full" />
-          </Magnet>
-        </FadeIn>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-2.5 sm:gap-0 pb-4 sm:pb-8 md:pb-10 px-4 sm:px-6 md:px-10 z-20 relative w-full">
-        {/* Left text */}
-        <FadeIn delay={0.35} y={20}>
-          <p
-            style={{ fontSize: 'clamp(0.72rem, 1.25vw, 1.35rem)' }}
-            className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[280px] sm:max-w-[240px] md:max-w-[320px] text-center sm:text-left"
-          >
-            a computer science engineer driven by building intelligent edge systems, autonomous robotics, and scalable full-stack platforms
+          <p className="text-[#D7E2EA]/80 font-light uppercase tracking-wide text-[11px] leading-relaxed max-w-[310px] mt-2 text-center">
+            A Computer Science engineer driven by building intelligent edge systems, autonomous robotics, and scalable full-stack platforms.
           </p>
-        </FadeIn>
+        </div>
 
-        {/* Right contact button */}
-        <FadeIn delay={0.5} y={20}>
+        {/* Center: 3D Face with Touch Interaction & Glowing Halo - Instant load */}
+        <div className="relative w-[230px] xs:w-[260px] my-auto flex justify-center py-2 pointer-events-auto">
+          <Interactive3DFace className="w-full" />
+        </div>
+
+        {/* Bottom: Contact Button */}
+        <div className="w-full flex justify-center pt-2">
           <ContactButton
             onClick={onContactClick}
             href={onContactClick ? undefined : '#contact'}
           />
-        </FadeIn>
+        </div>
       </div>
     </section>
   );
